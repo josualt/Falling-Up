@@ -34,6 +34,7 @@ export default class Game extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(0x87ceeb);
       this.obstacles = this.add.group();
       this.coins = this.add.group();
+      this.shots = this.add.group();
       this.generator = new Generator(this);
       this.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       this.player = new Player(this, this.center_width - 100, this.height - 200);
@@ -45,11 +46,19 @@ export default class Game extends Phaser.Scene {
       this.physics.add.overlap(this.player, this.coins, this.hitCoin, ()=>{
         return true;
       }, this);
+      this.physics.add.overlap(this.obstacles, this.shots, this.killObstacle, ()=>{
+        return true;
+      }, this);
       this.loadAudios(); 
-      this.playMusic();
+      //this.playMusic();
 
       this.input.on('pointerdown', (pointer) => this.jump(), this);
       this.updateScoreEvent = this.time.addEvent({ delay: 100, callback: () => this.updateScore(), callbackScope: this, loop: true });
+    }
+
+    killObstacle (obstacle, shot) {
+      shot.destroy()
+      obstacle.destroy()
     }
 
     hitObstacle (player, obstacle) {
@@ -89,15 +98,6 @@ export default class Game extends Phaser.Scene {
       })
       }
 
-    update() {
-      if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
-        this.jump();
-      } else if (this.player.body.blocked.down) {
-        this.jumpTween?.stop();
-        this.player.rotation = 0;
-        // ground
-      }
-    }
 
     jump () {
       if (!this.player.body.blocked.down) return

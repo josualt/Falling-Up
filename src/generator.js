@@ -20,12 +20,12 @@ This is done using the Phaser time.delayedCall function.
     }
 
     generateObstacle () {
-        this.scene.obstacles.add(new Obstacle(this.scene, 800, this.scene.height - Phaser.Math.Between(32, 128)))
+        this.scene.obstacles.add(new Obstacle(this.scene, 800, Phaser.Math.Between(32, this.scene.center_height -16)))
         this.scene.time.delayedCall(Phaser.Math.Between(1500, 2500), () => this.generateObstacle(), null, this);
     }
 
     generateCoin () {
-        this.scene.coins.add(new Coin(this.scene, 800, this.scene.height  - Phaser.Math.Between(32, 128)))
+        this.scene.coins.add(new Coin(this.scene, 800, Phaser.Math.Between(32, this.scene.center_height -16)))
         this.scene.time.delayedCall(Phaser.Math.Between(500, 1500), () => this.generateCoin(1), null, this);
     }
 }
