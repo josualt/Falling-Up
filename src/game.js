@@ -1,4 +1,4 @@
-import Player from "./player";
+import {Player, Player2} from "./player";
 import Generator from "./generator";
 
 export default class Game extends Phaser.Scene {
@@ -37,7 +37,8 @@ export default class Game extends Phaser.Scene {
       this.shots = this.add.group();
       this.generator = new Generator(this);
       this.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-      this.player = new Player(this, this.center_width - 100, this.height - 200);
+      this.player = new Player(this, this.center_width - 100, this.height - 200)
+      this.player2 = new Player2(this, this.center_width - 100, this.height -100);
       this.scoreText = this.add.bitmapText(this.center_width, 10, "arcade", this.score, 20)
       this.physics.add.collider(this.player, this.obstacles, this.hitObstacle, ()=>{
         return true;

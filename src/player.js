@@ -1,6 +1,6 @@
 import Shot from "./shot";
 
-class Player extends Phaser.GameObjects.Rectangle {
+export class Player extends Phaser.GameObjects.Rectangle {
     constructor (scene, x, y, number) {
       super(scene, x, y, 32, 32, 0x00ff00)
       this.setOrigin(0.5)
@@ -30,17 +30,36 @@ class Player extends Phaser.GameObjects.Rectangle {
     update(){
       if (this.cursor.up.isDown || this.W.isDown){
         this.y = this.y - 5
+        this.scene.player2.y = this.scene.player2.y - 5
       } else if (this.y < this.scene.center_height -5 && this.cursor.down.isDown || this.S.isDown){
         this.y = this.y + 5
+        this.scene.player2.y = this.scene.player2.y + 5
       }
       if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
         this.shot();
       }
     }
     shot(){
-    this.scene.shots.add(new Shot(this.scene, this.x +20, this.y))
+    this.scene.shots.add(new Shot(this.scene, this.scene.player2.x +20, this.scene.player2.y))
     }
   }
 
-export default Player;
+export class Player2 extends Phaser.GameObjects.Rectangle {
+    constructor (scene, x, y, number) {
+      super(scene, x, y, 32, 32, 0x00ff00)
+      this.setOrigin(0.5)
+      this.scene = scene;
+      this.scene.add.existing(this);
+      this.scene.physics.add.existing(this);
+      this.body.collideWorldBounds = true;
+      this.setScale(1)
+      this.jumping = false;
+      this.invincible = false;
+      this.health = 10;
+      this.body.mass = 10;
+      this.body.setDragY = 10;
+      this.body.setAllowGravity(false )
+    }  
+  }
+
   
