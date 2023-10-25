@@ -1,3 +1,4 @@
+import Trail from "./trail";
 class Shot extends Phaser.GameObjects.Rectangle {
     constructor (scene, x, y) {
         super(scene, x, y, 16, 16, 0xff0000);
@@ -16,6 +17,10 @@ class Shot extends Phaser.GameObjects.Rectangle {
             repeat: -1,
             yoyo: true 
         })
+        this.scene.events.on("update", this.update, this);
+    }
+    update(){
+        new Trail(this.scene, this.x-8, this.y)
     }
 }
 export default Shot;
