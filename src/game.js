@@ -37,6 +37,7 @@ export default class Game extends Phaser.Scene {
       this.shots = this.add.group();
       this.generator = new Generator(this);
       this.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+      this.hell = this.add.rectangle(0, this.center_height, this.width, this.center_height, 0xffff00 ).setOrigin(0)
       this.player = new Player(this, this.center_width - 100, this.height - 200)
       this.player2 = new Player2(this, this.center_width - 100, this.height -100);
       this.scoreText = this.add.bitmapText(this.center_width, 10, "arcade", this.score, 20)

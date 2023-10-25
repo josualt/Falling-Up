@@ -1,4 +1,5 @@
 import Shot from "./shot";
+import Trail from "./trail";
 
 export class Player extends Phaser.GameObjects.Rectangle {
     constructor (scene, x, y, number) {
@@ -28,7 +29,7 @@ export class Player extends Phaser.GameObjects.Rectangle {
     }
 
     update(){
-      if (this.cursor.up.isDown || this.W.isDown){
+      if (this.y -60 > 0 && this.cursor.up.isDown || this.W.isDown){
         this.y = this.y - 5
         this.scene.player2.y = this.scene.player2.y - 5
       } else if (this.y < this.scene.center_height -5 && this.cursor.down.isDown || this.S.isDown){
@@ -38,6 +39,8 @@ export class Player extends Phaser.GameObjects.Rectangle {
       if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
         this.shot();
       }
+      new Trail(this.scene, this.x-20, this.y)
+      new Trail(this.scene, this.scene.player2.x -20, this.scene.player2.y)
     }
     shot(){
     this.scene.shots.add(new Shot(this.scene, this.scene.player2.x +20, this.scene.player2.y))
@@ -61,5 +64,4 @@ export class Player2 extends Phaser.GameObjects.Rectangle {
       this.body.setAllowGravity(false )
     }  
   }
-
   
