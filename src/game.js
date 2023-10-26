@@ -41,6 +41,7 @@ export default class Game extends Phaser.Scene {
       this.player = new Player(this, this.center_width - 100, this.height - 200)
       this.player2 = new Player2(this, this.center_width - 100, this.height -100);
       this.scoreText = this.add.bitmapText(this.center_width, 10, "arcade", this.score, 20)
+      this.coinText = this.add.bitmapText(100, 10, "arcade", this.score, 20)
       this.physics.add.collider(this.player, this.obstacles, this.hitObstacle, ()=>{
         return true;
       }, this);
@@ -72,6 +73,8 @@ export default class Game extends Phaser.Scene {
       this.playAudio("coin")
       this.updateScore(1000);
       coin.destroy();
+      player.bullets++
+      this.updateCoins()
     }
 
       loadAudios () {
@@ -125,4 +128,8 @@ export default class Game extends Phaser.Scene {
         this.score += points;
         this.scoreText.setText(this.score);
     }
+
+    updateCoins () {
+      this.coinText.setText(this.player.bullets);
+  }
 }

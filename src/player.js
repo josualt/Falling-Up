@@ -16,6 +16,7 @@ export class Player extends Phaser.GameObjects.Rectangle {
       this.body.mass = 10;
       this.body.setDragY = 10;
       this.body.setAllowGravity(false )
+      this.bullets = 0;
       this.init()
     }  
     init(){
@@ -36,14 +37,17 @@ export class Player extends Phaser.GameObjects.Rectangle {
         this.y = this.y + 5
         this.scene.player2.y = this.scene.player2.y + 5
       }
-      if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+      if (Phaser.Input.Keyboard.JustDown(this.SPACE) && this.bullets > 0) {
         this.shot();
       }
       new Trail(this.scene, this.x-20, this.y)
       new Trail(this.scene, this.scene.player2.x -20, this.scene.player2.y)
     }
+    
     shot(){
     this.scene.shots.add(new Shot(this.scene, this.scene.player2.x +20, this.scene.player2.y))
+    this.bullets--
+    this.scene.updateCoins()
     }
   }
 

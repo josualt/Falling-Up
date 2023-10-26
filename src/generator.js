@@ -20,7 +20,7 @@ This is done using the Phaser time.delayedCall function.
     }
 
     generateObstacle () {
-        this.scene.obstacles.add(new Obstacle(this.scene, 800, Phaser.Math.Between(32, this.scene.center_height -16)))
+        this.scene.obstacles.add(new Obstacle(this.scene, 800, Phaser.Math.Between(this.scene.center_height, this.scene.height)))
         this.scene.time.delayedCall(Phaser.Math.Between(1500, 2500), () => this.generateObstacle(), null, this);
     }
 
