@@ -23,6 +23,8 @@ export default class Game extends Phaser.Scene {
         this.load.spritesheet('coin', './assets/images/coin.png',{ frameWidth: 32, frameHeight: 32 })
         this.load.bitmapFont("arcade", "assets/fonts/arcade.png", "assets/fonts/arcade.xml");
         this.score = 0;
+        this.load.image('spaceship', 'assets/images/spaceship.png')
+        this.load.image('spaceship2', 'assets/images/spaceship2.png')
     }
 
     create () {
@@ -35,18 +37,21 @@ export default class Game extends Phaser.Scene {
       this.obstacles = this.add.group();
       this.coins = this.add.group();
       this.shots = this.add.group();
+      this.players = this.add.group();
       this.generator = new Generator(this);
       this.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       this.hell = this.add.rectangle(0, this.center_height, this.width, this.center_height, 0xffff00 ).setOrigin(0)
       this.player = new Player(this, this.center_width - 100, this.height - 200)
       this.player2 = new Player2(this, this.center_width - 100, this.height -100);
+      this.players.add(this.player)
+      this.players.add(this.player2)
       this.scoreText = this.add.bitmapText(this.center_width, 10, "arcade", this.score, 20)
       this.coinText = this.add.bitmapText(100, 10, "arcade", this.score, 20)
-      this.physics.add.collider(this.player, this.obstacles, this.hitObstacle, ()=>{
+      this.physics.add.collider(this.players, this.obstacles, this.hitObstacle, ()=>{
         return true;
       }, this);
 
-      this.physics.add.overlap(this.player, this.coins, this.hitCoin, ()=>{
+      this.physics.add.overlap(this.players, this.coins, this.hitCoin, ()=>{
         return true;
       }, this);
       this.physics.add.overlap(this.obstacles, this.shots, this.killObstacle, ()=>{

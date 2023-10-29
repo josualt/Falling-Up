@@ -1,9 +1,9 @@
 import Shot from "./shot";
 import Trail from "./trail";
 
-export class Player extends Phaser.GameObjects.Rectangle {
-    constructor (scene, x, y, number) {
-      super(scene, x, y, 32, 32, 0x00ff00)
+export class Player extends Phaser.GameObjects.Sprite {
+  constructor (scene, x, y) {
+    super(scene, x, y, "spaceship")
       this.setOrigin(0.5)
       this.scene = scene;
       this.scene.add.existing(this);
@@ -51,9 +51,9 @@ export class Player extends Phaser.GameObjects.Rectangle {
     }
   }
 
-export class Player2 extends Phaser.GameObjects.Rectangle {
-    constructor (scene, x, y, number) {
-      super(scene, x, y, 32, 32, 0x00ff00)
+export class Player2 extends Phaser.GameObjects.Sprite {
+    constructor (scene, x, y) {
+        super(scene, x, y, "spaceship2")
       this.setOrigin(0.5)
       this.scene = scene;
       this.scene.add.existing(this);

@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Game from "./game";
 import GameOver from "./gameover";
+import Splash from "./splash";
 /*
 This is the main configuration file for the game.
 */
@@ -21,6 +22,7 @@ const config = {
         }
     },
     scene: [
+        Splash,
         Game,
         GameOver
     ]
