@@ -1,6 +1,6 @@
 import {Player, Player2} from "./player";
 import Generator from "./generator";
-
+import Explosion from "./explosion";
 export default class Game extends Phaser.Scene {
     constructor () {
         super({ key: "game" });
@@ -71,7 +71,9 @@ export default class Game extends Phaser.Scene {
 
     hitObstacle (player, obstacle) {
       this.updateScoreEvent.destroy()
-      this.finishScene();
+      new Explosion(this, player.x, player.y)
+      this.player.destroy()
+      this.player2.destroy()
     }
 
     hitCoin(player, coin) {
@@ -123,10 +125,13 @@ export default class Game extends Phaser.Scene {
     }
 
     finishScene () {
-      this.theme.stop();
+      if (this.theme) {
+        this.theme.stop();
+
+      }
       this.playAudio("dead")
       this.registry.set("score", ""+this.score)
-      this.scene.start("gameover");
+      this.scene.start("splash");
      }
 
     updateScore (points = 1) {

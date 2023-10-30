@@ -30,6 +30,9 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     update(){
+      if (!this.active) {
+        return
+    }  
       if (this.y -60 > 0 && this.cursor.up.isDown || this.W.isDown){
         this.y = this.y - 5
         this.scene.player2.y = this.scene.player2.y - 5

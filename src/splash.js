@@ -39,7 +39,7 @@ export default class Splash extends Phaser.Scene{
 
     startGame(){
         this.scene.start("game");
-        this.music.stop()
+        //this.music.stop()
 
     }
 }

@@ -20,7 +20,9 @@ class Shot extends Phaser.GameObjects.Rectangle {
         this.scene.events.on("update", this.update, this);
     }
     update(){
-        new Trail(this.scene, this.x-8, this.y)
+        if (this.active) {
+            new Trail(this.scene, this.x-8, this.y)
+        }  
     }
 }
 export default Shot;
