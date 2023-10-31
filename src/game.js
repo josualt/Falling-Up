@@ -16,9 +16,11 @@ export default class Game extends Phaser.Scene {
 
     preload () {
       this.registry.set("score", "0")
+        this.load.audio("explosion", "assets/sounds/explosion.mp3");
+        this.load.audio("pistol-shot", "assets/sounds/pistol-shot.mp3");
         this.load.audio("coin", "assets/sounds/coin.mp3");
         this.load.audio("jump", "assets/sounds/jump.mp3");
-        this.load.audio("dead", "assets/sounds/dead.mp3");
+        this.load.audio("linder", "assets/sounds/linder.mp3");
         this.load.audio("theme", "assets/sounds/theme.mp3");
         this.load.spritesheet('coin', './assets/images/coin.png',{ frameWidth: 32, frameHeight: 32 })
         this.load.bitmapFont("arcade", "assets/fonts/arcade.png", "assets/fonts/arcade.xml");
@@ -71,6 +73,7 @@ export default class Game extends Phaser.Scene {
 
     hitObstacle (player, obstacle) {
       this.updateScoreEvent.destroy()
+      this.playAudio('linder')
       new Explosion(this, player.x, player.y)
       this.player.destroy()
       this.player2.destroy()
@@ -86,9 +89,10 @@ export default class Game extends Phaser.Scene {
 
       loadAudios () {
         this.audios = {
+          "pistol-shot": this.sound.add("pistol-shot"),
           "jump": this.sound.add("jump"),
           "coin": this.sound.add("coin"),
-          "dead": this.sound.add("dead"),
+          "linder": this.sound.add("linder"),
         };
       }
 
@@ -129,7 +133,7 @@ export default class Game extends Phaser.Scene {
         this.theme.stop();
 
       }
-      this.playAudio("dead")
+      this.playAudio("linder")
       this.registry.set("score", ""+this.score)
       this.scene.start("splash");
      }

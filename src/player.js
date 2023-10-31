@@ -49,6 +49,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     
     shot(){
     this.scene.shots.add(new Shot(this.scene, this.scene.player2.x +20, this.scene.player2.y))
+    this.scene.playAudio('pistol-shot')
     this.bullets--
     this.scene.updateCoins()
     }
